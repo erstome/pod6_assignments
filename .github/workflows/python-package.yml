@@ -26,8 +26,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Poetry
       run: pip install poetry
-    - name: Change directory to 'assignments'
-      working-directory: assignments
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
