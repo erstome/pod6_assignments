@@ -21,10 +21,12 @@ format:
 
 # Lint
 lint:
+	pylint life_expectancy.cleaning
 	# pylint --disable=R,C hello.py
 
 # Testing
 test:
-	python -m pytest -vv --cov=hello ./life_expectancy/tests/*.py
+	pytest life_expectancy --cov
+	# python -m pytest -vv --cov=hello ./life_expectancy/tests/*.py
 
 all: format lint test
