@@ -1,3 +1,4 @@
+[![Python package](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml/badge.svg)](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml)
 # Foundations Learning Path Assignments
 
 ## Introduction
