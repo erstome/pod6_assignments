@@ -1,4 +1,4 @@
-[![Lint & Test](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml/badge.svg)](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml)
+[![Linting and Testing](https://github.com/erstome/pod6_assignments/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/erstome/pod6_assignments/actions/workflows/linting_and_testing.yml)
 # Foundations Learning Path Assignments
 
 Solutions to the DareData foundations learning path assignments
