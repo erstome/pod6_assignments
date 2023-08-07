@@ -1,7 +1,8 @@
-[![Python package](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml/badge.svg)](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml)
+[![Lint & Test](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml/badge.svg)](https://github.com/erstome/pod6_assignments/actions/workflows/python-package.yml)
 # Foundations Learning Path Assignments
 
-## Introduction
+Solutions to the DareData foundations learning path assignments
+<!-- ## Introduction
 
 This assignment uses life expectancy in Europe grouped by Country (or other, like group of countries), Age, Sex, and Time. But the data format makes it hard to use. The task consists into cleaning the data and applying the concepts you've learned in the previous modules.
 
@@ -34,6 +35,6 @@ Now you're ready to go!
 
 ## Using this project
 
-Open the `README.md` file inside each assignment and follow the instructions.
+Open the `README.md` file inside each assignment and follow the instructions. -->
 
 > Note: Remember that all commands inside the Readme files assume you are in the root of the project.
