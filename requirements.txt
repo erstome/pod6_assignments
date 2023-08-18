@@ -6,3 +6,4 @@ pylint
 pandas
 ipykernel
 argparse
+pathlib
