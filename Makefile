@@ -26,7 +26,7 @@ lint:
 
 # Testing
 test:
-	pytest life_expectancy --cov
+	pytest life_expectancy --cov --cov-report term-missing
 	# python -m pytest -vv --cov=hello ./life_expectancy/tests/*.py
 
 all: format lint test
