@@ -78,7 +78,7 @@ def clean_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
     life_expectancy_df : pd.DataFrame
         Pandas dataframe with the original data (imported using load_data)
     region : str
-        description_
+        Region to filter the data (e.g.: 'PT' for Portugal)
 
     Returns
     -------
