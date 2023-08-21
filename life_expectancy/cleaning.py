@@ -69,7 +69,7 @@ def save_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
                               '_life_expectancy.csv',
                               index=False)
 
-def clean_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
+def clean_data(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame:
     """
     Function to preprocess and clean data.
 
@@ -85,22 +85,15 @@ def clean_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
     pd.DataFrame
         Pandas dataframe with cleaned data.
     """
-    # split columns into several
-    life_expectancy_df_cleaned = _split_columns_into_several(life_expectancy_df)
 
-    # Unpivots dataframe
-    life_expectancy_df_cleaned = _unpivot_dataframe(life_expectancy_df_cleaned)
-
-    # Clean and remove nans
-    life_expectancy_df_cleaned = _remove_nans(life_expectancy_df_cleaned)
-
-    # Ensures 'year' is an int and 'value' to float
-    life_expectancy_df_cleaned = _cast_types(life_expectancy_df_cleaned)
-
-    # Filters data for the specifyed region.
-    life_expectancy_df_cleaned = _filter_region(life_expectancy_df_cleaned,
-                                       region=region)
-    return life_expectancy_df_cleaned
+    return (
+        life_expectancy_df
+        .pipe(_split_columns_into_several) # split columns into several
+        .pipe(_unpivot_dataframe) # Unpivots dataframe
+        .pipe(_remove_nans) # Clean and remove nans
+        .pipe(_cast_types) # Ensures 'year' is an int and 'value' to float
+        .pipe(_filter_region, region=region) # Filters data for the specifyed region.
+    )
 
 def main(region: str = 'PT') -> None:
     "main function to import, clean and save cleaned data"
