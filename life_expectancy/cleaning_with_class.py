@@ -20,31 +20,23 @@ class LifeExpectancy():
     region: str
         region to filter the data. If None, saves the data for all regions. Default: 'PT'
     """
+
     def __init__(self, file_path: Path, region: str = 'PT') -> None:
         self.region = region
         self.life_expectancy_df = self._read_tsv_file_to_pandas_dataframe(file_path)
 
     @staticmethod
     def _read_tsv_file_to_pandas_dataframe(file_path: str) -> pd.DataFrame:
-        """Loads tsv file to pandas dataframe
+        """Loads tsv file to pandas dataframe"""
 
-        Parameters
-        ----------
-        file_path : str
-            path of the tsv file to be read
-
-        Returns
-        -------
-        pd.DataFrame
-            loaded data
-        """
-        # Loads the eu_life_expectancy_raw.tsv data from the data folder.
         return pd.read_csv(file_path, sep='\t')
 
-    def _split_columns_into_several(self) -> pd.DataFrame:
-        """Split the first column of the dataframe into several"""
-        # Unpivots the date to long format, so that we have the following columns:
-        # unit, sex, age, region, year, value.
+    def _split_columns_into_several(self) -> None:
+        """Split the first column of the dataframe into several.
+        Unpivots the date to long format, so that we have the following columns:
+        unit, sex, age, region, year, value.
+        """
+
         self.life_expectancy_df = pd.concat(
             [
                 pd.DataFrame(self.life_expectancy_df['unit,sex,age,geo\\time'].str.split(',')\
@@ -55,69 +47,72 @@ class LifeExpectancy():
             axis=1
         )
 
-    def _unpivot_dataframe(self) -> pd.DataFrame:
+    def _unpivot_dataframe(self) -> None:
         """Unpivot the life_expenctancy_df dataframe"""
-        # unpivot the dataframe
-        self.life_expectancy_df = pd.melt(self.life_expectancy_df, 
+
+        self.life_expectancy_df = pd.melt(self.life_expectancy_df,
                                           id_vars=self.life_expectancy_df.columns[0:4],
                                           value_vars=self.life_expectancy_df.columns[4:],
                                           var_name='year')
 
-    def _remove_nans(self) -> pd.DataFrame:
-        """cleaning value column and removing missing values"""
-        # cleaning of the column value
+    def _cleaning_value_column(self) -> None:
+        """cleaning value column"""
+
         self.life_expectancy_df['value'] = \
             pd.DataFrame(self.life_expectancy_df['value'].str.strip(' epb:'))
 
-        # Remove NaNs from 'value
+    def _remove_nans_from_column_value(self) -> None:
+        """Remove NaNs from 'value' column"""
+
         self.life_expectancy_df = \
             self.life_expectancy_df[self.life_expectancy_df['value']!=''].reset_index(drop=True)
 
-
-    def _cast_types(self) -> pd.DataFrame:
+    def _cast_types(self) -> None:
         """cast columns year and value to int and float, respectivly"""
+    
         self.life_expectancy_df = self.life_expectancy_df.astype({'year': 'int', 'value': 'float'})
 
-    def preprocess_data(self) -> pd.DataFrame:
+    def _filter_region(self) -> None:
+        """Filters only the data where region equal to the desired region"""
+
+        self.life_expectancy_df = \
+            self.life_expectancy_df[self.life_expectancy_df.region==self.region]
+
+    def preprocess_data(self) -> None:
         "Preprocess data (split columns, unpivot dataframe, remove nans and cast types)"
+
         # split columns into several
         self._split_columns_into_several()
 
         # Unpivots dataframe
         self._unpivot_dataframe()
 
-        # Clean and remove nans
-        self._remove_nans()
+        # Clean 'value' column
+        self._cleaning_value_column()
+
+        # Remove nans for the 'value' column
+        self._remove_nans_from_column_value()
 
         # Ensures 'year' is an int and 'value' to float
         self._cast_types()
 
-    def _filter_region(self) -> pd.DataFrame:
-        """Filters only the data where region equal to the desired region"""
-        self.life_expectancy_df = \
-            self.life_expectancy_df[self.life_expectancy_df.region==self.region]
+        # Filters data for the specifyed region.
+        self._filter_region()
 
     def save_dataframe_to_csv(self) -> None:
         """Saves the dataframe to csv"""
-        if self.region:
-            # Filters data for the specifyed region.
-            self._filter_region()
 
-            # Save to disk
-            self.life_expectancy_df.to_csv(str(CURRENT_PATH) + '/data/' + self.region.lower() + \
-                                    '_life_expectancy.csv',
-                                    index=False)
-        else:
-            # Save to disk
-            self.life_expectancy_df.to_csv(str(CURRENT_PATH) + '/data/' + \
-                                    'eu_life_expectancy.csv',
-                                    index=False)
+        # Save to disk
+        self.life_expectancy_df.to_csv(str(CURRENT_PATH) + '/data/' + self.region.lower() + \
+                                '_life_expectancy.csv',
+                                index=False)
 
-def clean_data(region: str = 'PT') -> None:
+def main(region: str = 'PT') -> None:
     """
     Function to import, clean and save data.
     Saves to a *.csv file.
     """
+
     # File path
     file_path = Path(CURRENT_PATH,
                      'data', 
@@ -141,4 +136,4 @@ if __name__ == '__main__': # pragma: no cover
     args = parser.parse_args()
 
     # function call
-    clean_data(region=args.region)
+    main(region=args.region)
