@@ -1,0 +1,9 @@
+mypy
+black
+pytest
+pytest-cov
+pylint
+pandas
+ipykernel
+argparse
+pathlib
