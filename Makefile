@@ -1,10 +1,11 @@
+
 # configure env
 env:
-	python3 -m venv ~/DareData/.pod6
+	python3 -m venv ~/pyenvs/pod6
 
 # activate the environemnt (it does not work. Here just to remember)
 activate:
-	# source ~/DareData/.pod6/bin/activate
+	# source ~/pyenvs/pod6/bin/activate
 
 # install pip and requirements
 install:

@@ -7,7 +7,9 @@ import pandas as pd
 
 # Constants
 CURRENT_PATH = Path(__file__).parent
-
+EU_LIFE_EXPECTANCY_DATA_RAW_PATH = Path(CURRENT_PATH,
+                                        'data', 
+                                        'eu_life_expectancy_raw.tsv')
 # Functions
 def load_data(file_path: str) -> pd.DataFrame:
     """Loads tsv file to pandas dataframe"""
@@ -59,7 +61,7 @@ def _cast_types(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
     return life_expectancy_df.astype({'year': 'int', 'value': 'float'})
 
 
-def _filter_region(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame:
+def filter_region(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame:
     """Filters only the data where region equal to the desired region"""
 
     return life_expectancy_df[life_expectancy_df.region==region]
@@ -73,7 +75,7 @@ def save_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
                               index=False)
 
 
-def clean_data(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame:
+def clean_data(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
     """Function to preprocess and clean data."""
 
     return (
@@ -83,7 +85,6 @@ def clean_data(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame:
         .pipe(_cleaning_value_column) # Cleaning the 'value' column
         .pipe(_remove_nans_from_column_value) # Remove nans from the value column
         .pipe(_cast_types) # Ensures 'year' is an int and 'value' to float
-        .pipe(_filter_region, region=region) # Filters data for the specifyed region.
     )
 
 
@@ -91,16 +92,20 @@ def main(region: str = 'PT') -> None:
     """main function to import, clean and save cleaned data.
     region (str, optional) is the code of the region to filter the data, by default 'PT'
     """
-
+    # file_path: Path = EU_LIFE_EXPECTANCY_DATA_RAW_PATH, 
     file_path = Path(CURRENT_PATH,
-                     'data', 
-                     'eu_life_expectancy_raw.tsv')
+                    'data', 
+                    'eu_life_expectancy_raw.tsv')
 
     life_expectancy_df = load_data(file_path=file_path)
 
-    life_expectancy_df_cleaned = clean_data(life_expectancy_df, region=region)
+    life_expectancy_df_cleaned = clean_data(life_expectancy_df)
 
-    save_data(life_expectancy_df_cleaned, region=region)
+    life_expectancy_df_cleaned_filtered = filter_region(life_expectancy_df_cleaned, region=region)
+
+    save_data(life_expectancy_df_cleaned_filtered, region=region)
+
+    return life_expectancy_df_cleaned_filtered
 
 
 if __name__ == '__main__': # pragma: no cover
