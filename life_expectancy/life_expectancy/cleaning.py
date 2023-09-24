@@ -5,19 +5,16 @@ import argparse
 from pathlib import Path
 import pandas as pd
 
+# Local imports
+from .load_save import load_data
+from .load_save import save_data
+
 # Constants
-CURRENT_PATH = Path(__file__).parent
+CURRENT_PATH = Path(__file__).parent.parent
 EU_LIFE_EXPECTANCY_DATA_RAW_PATH = Path(CURRENT_PATH,
                                         'data', 
                                         'eu_life_expectancy_raw.tsv')
 # Functions
-def load_data(file_path: str) -> pd.DataFrame:
-    """Loads tsv file to pandas dataframe"""
-
-    # Loads the eu_life_expectancy_raw.tsv data from the data folder.
-    return pd.read_csv(file_path, sep='\t')
-
-
 def _split_columns_into_several(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
     """Split the first column of the dataframe into several.
     Unpivots the date to long format, so that we have the following columns:
@@ -65,14 +62,6 @@ def filter_region(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame
     """Filters only the data where region equal to the desired region"""
 
     return life_expectancy_df[life_expectancy_df.region==region]
-
-
-def save_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
-    """Saves the dataframe to csv"""
-
-    life_expectancy_df.to_csv(str(CURRENT_PATH) + '/data/' + region.lower() + \
-                              '_life_expectancy.csv',
-                              index=False)
 
 
 def clean_data(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
