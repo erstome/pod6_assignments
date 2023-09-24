@@ -33,3 +33,4 @@ def eu_life_expectancy_expected() -> pd.DataFrame():
     before filtering (for the sample data)
     """
     return pd.read_csv(FIXTURES_DIR / "eu_life_expectancy_expected.csv")
+
