@@ -2,8 +2,8 @@
 Module to load and save data
 """
 # imports
-import pandas as pd
 from pathlib import Path
+import pandas as pd
 
 # Constants
 CURRENT_PATH = Path(__file__).parent.parent

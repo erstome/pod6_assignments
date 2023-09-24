@@ -81,7 +81,7 @@ def main(region: str = 'PT') -> None:
     """main function to import, clean and save cleaned data.
     region (str, optional) is the code of the region to filter the data, by default 'PT'
     """
-    # file_path: Path = EU_LIFE_EXPECTANCY_DATA_RAW_PATH, 
+    # file_path: Path = EU_LIFE_EXPECTANCY_DATA_RAW_PATH
     file_path = Path(CURRENT_PATH,
                     'data', 
                     'eu_life_expectancy_raw.tsv')
