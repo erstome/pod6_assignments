@@ -31,6 +31,6 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with pytest
-      run: pylint life_expectancy.cleaning
+      run: pylint life_expectancy.life_expectancy
     - name: Test with pytest
       run: pytest life_expectancy --cov
