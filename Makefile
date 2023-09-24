@@ -22,7 +22,8 @@ format:
 
 # Lint
 lint:
-	pylint life_expectancy.cleaning life_expectancy.cleaning_with_class
+	pylint life_expectancy.life_expectancy
+	#life_expectancy.cleaning_with_class
 	# pylint --disable=R,C hello.py
 
 # Testing
