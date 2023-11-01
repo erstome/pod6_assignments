@@ -14,6 +14,7 @@ CURRENT_PATH = Path(__file__).parent.parent
 EU_LIFE_EXPECTANCY_DATA_RAW_PATH = Path(CURRENT_PATH,
                                         'data', 
                                         'eu_life_expectancy_raw.tsv')
+                                        
 # Functions
 def _split_columns_into_several(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
     """Split the first column of the dataframe into several.
