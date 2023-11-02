@@ -30,7 +30,8 @@ class TSVDataFormat(DataFormatStrategy):
 
 
 # Functions
-def load_data(file_path: str, data_format_strategy: DataFormatStrategy) -> pd.DataFrame:
+def load_data(file_path: str,
+              data_format_strategy: DataFormatStrategy = TSVDataFormat()) -> pd.DataFrame:
     """Loads file to pandas dataframe"""
     return data_format_strategy.read_data(file_path)
 
