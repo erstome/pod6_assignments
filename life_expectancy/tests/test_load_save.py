@@ -24,13 +24,16 @@ def test_load_data_tsv(eu_life_expectancy_raw):
         eu_life_expectancy_raw_actual, eu_life_expectancy_raw
     )
 
-def test_load_data_json():
+def test_load_data_json(eurostat_life_expect_raw):
     """Tests function load_data for json files"""
     data_directory = str(Path(FIXTURES_DIR, 'eurostat_life_expect_sample.json'))
     eu_life_expectancy_raw_actual = load_data(data_directory, 
                                               data_format_strategy=JSONDataFormat())
     
     assert eu_life_expectancy_raw_actual.shape[0]==100
+    pd.testing.assert_frame_equal(
+        eu_life_expectancy_raw_actual, eurostat_life_expect_raw
+    )
 
 
 @patch('life_expectancy.life_expectancy.load_save.pd.DataFrame.to_csv')
