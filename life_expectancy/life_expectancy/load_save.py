@@ -14,19 +14,19 @@ from .countries import Country
 CURRENT_PATH = Path(__file__).parent.parent
 
 # Strategy pattern
-class DataFormatStrategy(ABC):
+class DataFormatStrategy(ABC): # pylint: disable=too-few-public-methods
     "Data format strategy abstract class"
     @abstractmethod
     def read_data(self, file_path: str) -> pd.DataFrame:
         "Apply data reading strategy for the data format"
 
-class JSONDataFormat(DataFormatStrategy):
+class JSONDataFormat(DataFormatStrategy): # pylint: disable=too-few-public-methods
     "JSON data format strategy class"
     def read_data(self, file_path: str) -> pd.DataFrame:
         with open(file_path, encoding="utf-8") as file:
             return pd.DataFrame(json.load(file))
 
-class TSVDataFormat(DataFormatStrategy):
+class TSVDataFormat(DataFormatStrategy): # pylint: disable=too-few-public-methods
     "TSV data format strategy class"
     def read_data(self, file_path: str) -> pd.DataFrame:
         return pd.read_csv(file_path, sep='\t')
