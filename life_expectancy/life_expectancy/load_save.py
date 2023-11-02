@@ -7,6 +7,9 @@ import json
 from pathlib import Path
 import pandas as pd
 
+# Local imports
+from .countries import Country
+
 # Constants
 CURRENT_PATH = Path(__file__).parent.parent
 
@@ -35,9 +38,9 @@ def load_data(file_path: str,
     """Loads file to pandas dataframe"""
     return data_format_strategy.read_data(file_path)
 
-def save_data(life_expectancy_df: pd.DataFrame, region: str) -> None:
+def save_data(life_expectancy_df: pd.DataFrame, region: Country) -> None:
     """Saves the dataframe to csv"""
 
-    life_expectancy_df.to_csv(str(CURRENT_PATH) + '/data/' + region.lower() + \
+    life_expectancy_df.to_csv(str(CURRENT_PATH) + '/data/' + region.value.lower() + \
                               '_life_expectancy.csv',
                               index=False)

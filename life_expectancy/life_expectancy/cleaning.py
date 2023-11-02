@@ -60,10 +60,10 @@ def _cast_types(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
     return life_expectancy_df.astype({'year': 'int', 'value': 'float'})
 
 
-def filter_region(life_expectancy_df: pd.DataFrame, region: str) -> pd.DataFrame:
+def filter_region(life_expectancy_df: pd.DataFrame, region: Country) -> pd.DataFrame:
     """Filters only the data where region equal to the desired region"""
 
-    return life_expectancy_df[life_expectancy_df.region==region]
+    return life_expectancy_df[life_expectancy_df.region==region.value]
 
 
 def clean_data(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
@@ -79,7 +79,7 @@ def clean_data(life_expectancy_df: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def main(region: Country = Country('PT')) -> None:
+def main(region: Country = Country.PT) -> None:
     """main function to import, clean and save cleaned data.
     region (str, optional) is the code of the region to filter the data, by default 'PT'
     """
@@ -93,9 +93,9 @@ def main(region: Country = Country('PT')) -> None:
     life_expectancy_df_cleaned = clean_data(life_expectancy_df)
 
     life_expectancy_df_cleaned_filtered = filter_region(life_expectancy_df_cleaned,
-                                                        region=region.value)
+                                                        region=region)
 
-    save_data(life_expectancy_df_cleaned_filtered, region=region.value)
+    save_data(life_expectancy_df_cleaned_filtered, region=region)
 
     return life_expectancy_df_cleaned_filtered
 
@@ -103,7 +103,7 @@ def main(region: Country = Country('PT')) -> None:
 if __name__ == '__main__': # pragma: no cover
     # parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('--region', type=str, required=False, default=Country('PT'))
+    parser.add_argument('--region', type=str, required=False, default=Country.PT)
     args = parser.parse_args()
 
     # function call

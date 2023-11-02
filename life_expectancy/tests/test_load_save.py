@@ -35,13 +35,15 @@ def test_load_data_json(eurostat_life_expect_raw):
         eu_life_expectancy_raw_actual, eurostat_life_expect_raw
     )
 
-
+@patch('life_expectancy.life_expectancy.countries.Country')
 @patch('life_expectancy.life_expectancy.load_save.pd.DataFrame.to_csv')
-def test_save_data(patched_DataFrame_to_csv, eu_life_expectancy_expected):
+def test_save_data(patched_DataFrame_to_csv,
+                   patched_Country,
+                   eu_life_expectancy_expected):
     """Tests function save_data"""
-    region = "TestRegion"
+    patched_Country.TestRegion.value = "TestRegion"
 
-    save_data(eu_life_expectancy_expected, region)
+    save_data(eu_life_expectancy_expected, region=patched_Country.TestRegion)
 
     # expected output_file name/directory
     output_file = str(Path(OUTPUT_DIR, 'testregion_life_expectancy.csv'))
