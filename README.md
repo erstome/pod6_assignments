@@ -1,7 +1,7 @@
 [![Linting and Testing](https://github.com/erstome/pod6_assignments/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/erstome/pod6_assignments/actions/workflows/linting_and_testing.yml)
 # Foundations Learning Path Assignments
 
-Solutions to the DareData foundations learning path assignments
+This repository contains my solutions to the [DareData foundations learning path](https://github.com/DareData/lp-foundations) assignments
 <!-- ## Introduction
 
 This assignment uses life expectancy in Europe grouped by Country (or other, like group of countries), Age, Sex, and Time. But the data format makes it hard to use. The task consists into cleaning the data and applying the concepts you've learned in the previous modules.
